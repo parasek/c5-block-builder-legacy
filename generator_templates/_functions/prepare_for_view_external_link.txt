@@ -1,0 +1,45 @@
+    private function prepareForViewExternalLink($type, $fields) {
+
+        $keys = array_keys($fields);
+        $linkFieldName  = $keys[0];
+        $textFieldName  = $keys[1];
+        $titleFieldName = $keys[2];
+
+        $link  = $fields[$linkFieldName];
+        $text  = $fields[$textFieldName];
+        $title = $fields[$titleFieldName];
+
+        if (!empty($link)) {
+
+            if (empty($text)) {
+                $text = $link;
+            }
+
+            if (empty($title)) {
+                $title = $link;
+            }
+
+        }
+
+        if ($type == 'view') {
+
+            // Fields from database
+            $this->set($linkFieldName, $link);
+            $this->set($textFieldName, $text);
+            $this->set($titleFieldName, $title);
+
+        } elseif ($type == 'entry') {
+
+            $entry = array();
+
+            // Fields from database
+            $entry[$linkFieldName]  = $link;
+            $entry[$textFieldName]  = $text;
+            $entry[$titleFieldName] = $title;
+
+            return $entry;
+
+        }
+
+    }
+

@@ -1,0 +1,6 @@
+Copy code from code.txt into:
+packages\community_ckeditor\src\Editor\CKEditor.php
+just before last "}"
+
+Warning, this solution is highly experimental.
+If you ever update community_ckeditor addon, you will need to copy code again.
