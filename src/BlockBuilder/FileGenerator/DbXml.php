@@ -100,6 +100,10 @@ class DbXml
                     $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'" type="X2"></field>'.PHP_EOL.PHP_EOL;
                 }
 
+                if ($v['fieldType']=='date_picker') {
+                    $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'" type="T"></field>'.PHP_EOL.PHP_EOL;
+                }
+
             }
 
         }
@@ -179,6 +183,10 @@ class DbXml
 
                 if ($v['fieldType']=='html_editor') {
                     $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'" type="X2"></field>'.PHP_EOL.PHP_EOL;
+                }
+
+                if ($v['fieldType']=='date_picker') {
+                    $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'" type="T"></field>'.PHP_EOL.PHP_EOL;
                 }
 
             }
