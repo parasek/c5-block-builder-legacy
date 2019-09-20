@@ -2,9 +2,10 @@ $(function() {
 
     Concrete.event.bind('open.block.[[[BLOCK_HANDLE_DASHED]]]', function(e, data) {
 
-        var uniqueID         = data.uniqueID;
-        var formContainer    = $('#form-container-'+uniqueID);
-        var entriesContainer = formContainer.find('#entries-'+uniqueID);
+        var uniqueID           = data.uniqueID;
+        var formContainer      = $('#form-container-'+uniqueID);
+        var entriesContainer   = formContainer.find('#entries-'+uniqueID);
+        var maxNumberOfEntries = parseInt(formContainer.find('.js-max-number-of-entries').text());
 
         function activateEditors(parentContainer) {
 
@@ -75,6 +76,20 @@ $(function() {
 
         }
 
+        function updateCounter(numberOfEntries) {
+
+            if (numberOfEntries<=maxNumberOfEntries) {
+                formContainer.find('.js-number-of-entries').text(numberOfEntries);
+            }
+
+            if (numberOfEntries>=maxNumberOfEntries) {
+                formContainer.find('.js-add-entry').attr('disabled', true);
+            } else {
+                formContainer.find('.js-add-entry').removeAttr('disabled');
+            }
+
+        }
+
         function countEntries(parentContainer) {
 
             var numberOfEntries = parentContainer.children().length;
@@ -114,6 +129,8 @@ $(function() {
         activateHtmlEditors(formContainer);
 
         activateDatePickers(formContainer);
+
+        updateCounter(countEntries(entriesContainer));
 
         // Add entry
         formContainer.on('click', '.js-add-entry', function(e) {
@@ -157,6 +174,8 @@ $(function() {
 
             activateDatePickers(newEntry);
 
+            updateCounter(countEntries(entriesContainer));
+
             // Smooth scroll
             $(this).closest('.ui-dialog-content').animate({
                 scrollTop: formContainer.find('.js-entry[data-position="'+position+'"]').position().top + $(this).closest('.ui-dialog-content').scrollTop()
@@ -193,6 +212,9 @@ $(function() {
                     entriesContainer.append(templateNoEntries());
 
                 }
+
+                updateCounter(countEntries(entriesContainer));
+
             }
 
         });
