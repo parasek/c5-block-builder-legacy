@@ -120,6 +120,9 @@ class FormPhp
                         $code .= BlockBuilderUtility::tab(4) . '.js-custom-editor-height-<?php echo str_replace(array(\'[\', \']\'), array(\'\[\', \'\]\'), $view->field(\'' . $v['handle'] . '\')); ?>-<?php echo $uniqueID; ?> .cke_contents {' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(5) . 'height: '.$height.'px !important;' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(4) . '}' . PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(4) . '.js-custom-editor-height-<?php echo str_replace(array(\'[\', \']\'), array(\'\[\', \'\]\'), $view->field(\'' . $v['handle'] . '\')); ?>-<?php echo $uniqueID; ?> .cke_editable {' . PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(5) . 'min-height: '.$height.'px !important;' . PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(4) . '}' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(4) . '<?php else :?>' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(4) . '.js-custom-editor-height-<?php echo str_replace(array(\'[\', \']\'), array(\'\[\', \'\]\'), $view->field(\'' . $v['handle'] . '\')); ?>-<?php echo $uniqueID; ?> .redactor-editor {' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(5) . 'min-height: '.$height.'px !important;' . PHP_EOL;
@@ -449,6 +452,9 @@ class FormPhp
                         $code .= BlockBuilderUtility::tab(7) . '<?php if ($wysiwygEditor==\'ckeditor\'): ?>' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(7) . '.js-custom-editor-height-<?php echo str_replace(array(\'[\', \']\'), array(\'\[\', \'\]\'), $view->field(\'entry\').\'[<%=position%>][' . $v['handle'] . ']\'); ?>-<?php echo $uniqueID; ?> .cke_contents {' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(8) . 'height: '.$height.'px !important;' . PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(7) . '}' . PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(7) . '.js-custom-editor-height-<?php echo str_replace(array(\'[\', \']\'), array(\'\[\', \'\]\'), $view->field(\'entry\').\'[<%=position%>][' . $v['handle'] . ']\'); ?>-<?php echo $uniqueID; ?> .cke_editable {' . PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(8) . 'min-height: '.$height.'px !important;' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(7) . '}' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(7) . '<?php else :?>' . PHP_EOL;
                         $code .= BlockBuilderUtility::tab(7) . '.js-custom-editor-height-<?php echo str_replace(array(\'[\', \']\'), array(\'\[\', \'\]\'), $view->field(\'entry\').\'[<%=position%>][' . $v['handle'] . ']\'); ?>-<?php echo $uniqueID; ?> .redactor-editor {' . PHP_EOL;
