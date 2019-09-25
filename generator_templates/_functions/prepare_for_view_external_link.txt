@@ -1,41 +1,55 @@
     private function prepareForViewExternalLink($type, $fields) {
 
         $keys = array_keys($fields);
-        $linkFieldName  = $keys[0];
-        $textFieldName  = $keys[1];
-        $titleFieldName = $keys[2];
+        $linkFieldName     = $keys[0];
+        $protocolFieldName = $keys[1];
+        $endingFieldName   = $keys[2];
+        $textFieldName     = $keys[3];
+        $titleFieldName    = $keys[4];
 
-        $link  = $fields[$linkFieldName];
-        $text  = $fields[$textFieldName];
-        $title = $fields[$titleFieldName];
-
-        if (!empty($link)) {
-
-            if (empty($text)) {
-                $text = $link;
-            }
-
-            if (empty($title)) {
-                $title = $link;
-            }
-
-        }
+        $link     = $fields[$linkFieldName];
+        $protocol = $fields[$protocolFieldName];
+        $ending   = $fields[$endingFieldName];
+        $text     = $fields[$textFieldName];
+        $title    = $fields[$titleFieldName];
 
         if ($type == 'view') {
 
             // Fields from database
             $this->set($linkFieldName, $link);
+            $this->set($protocolFieldName, $protocol);
+            $this->set($endingFieldName, $ending);
             $this->set($textFieldName, $text);
             $this->set($titleFieldName, $title);
+
+            // Additional data
+            if (!empty($link) AND $protocol!='other') {
+                $link = $protocol.$link;
+            }
+            $this->set($linkFieldName.'_link', $link);
 
         } elseif ($type == 'entry') {
 
             $entry = array();
 
             // Fields from database
-            $entry[$linkFieldName]  = $link;
-            $entry[$textFieldName]  = $text;
-            $entry[$titleFieldName] = $title;
+            $entry[$linkFieldName]     = $link;
+            $entry[$protocolFieldName] = $protocol;
+            $entry[$endingFieldName]   = $ending;
+            $entry[$textFieldName]     = $text;
+            $entry[$titleFieldName]    = $title;
+
+            // Additional data
+            if (!empty($link) AND $protocol!='other') {
+                $link = $protocol.$link;
+            }
+            $entry[$linkFieldName.'_link'] = $link;
+
+            // Additional data
+            if (!empty($link) AND $protocol!='other') {
+                $link = $protocol.$link;
+            }
+            $entry[$linkFieldName.'_link'] = $link;
 
             return $entry;
 

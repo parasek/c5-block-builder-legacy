@@ -312,6 +312,21 @@ $(function() {
             }
         });
 
+        // Change external link protocol
+        entriesContainer.on('keyup change', '.js-external-link-url', function(e) {
+
+            var url = $(this).val();
+
+            if (url.indexOf('https://') == 0) {
+                $(this).val(url.substring(8));
+                $(this).parent().closest('.row').find('.js-external-link-protocol').val(url.substring(0, 8));
+            } else if (url.indexOf('http://') == 0) {
+                $(this).val(url.substring(7));
+                $(this).parent().closest('.row').find('.js-external-link-protocol').val(url.substring(0, 7));
+            }
+
+        });
+
     });
 
 });
