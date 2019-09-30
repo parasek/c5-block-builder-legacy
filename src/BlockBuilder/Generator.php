@@ -51,6 +51,7 @@ class Generator
 
         $postDataSummary['wysiwygEditorUsed_entry']       = false;
         $postDataSummary['htmlEditorUsed_entry']          = false;
+        $postDataSummary['linkUsed_entry']                = false;
         $postDataSummary['linkFromSitemapUsed_entry']     = false;
         $postDataSummary['linkFromFileManagerUsed_entry'] = false;
         $postDataSummary['externalLinkUsed_entry']        = false;
@@ -103,15 +104,15 @@ class Generator
                     $postDataSummary['linkUsed'] = true;
                 }
 
-                if ($v['fieldType']=='link_from_sitemap' OR $v['fieldType']=='link') {
+                if ($v['fieldType']=='link_from_sitemap') {
                     $postDataSummary['linkFromSitemapUsed'] = true;
                 }
 
-                if ($v['fieldType']=='link_from_file_manager' OR $v['fieldType']=='link') {
+                if ($v['fieldType']=='link_from_file_manager') {
                     $postDataSummary['linkFromFileManagerUsed'] = true;
                 }
 
-                if ($v['fieldType']=='external_link' OR $v['fieldType']=='link') {
+                if ($v['fieldType']=='external_link') {
                     $postDataSummary['externalLinkUsed'] = true;
                 }
 
@@ -163,7 +164,11 @@ class Generator
                     $postDataSummary['htmlEditorUsed_entry'] = true;
                 }
 
-                if ($v['fieldType']=='link_from_sitemap') {
+                if ($v['fieldType']=='link') {
+                    $postDataSummary['linkUsed_entry'] = true;
+                }
+
+                 if ($v['fieldType']=='link_from_sitemap') {
                     $postDataSummary['linkFromSitemapUsed_entry'] = true;
                 }
 

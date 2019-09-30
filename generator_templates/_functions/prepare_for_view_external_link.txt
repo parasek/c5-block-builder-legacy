@@ -47,12 +47,6 @@
             $entry[$titleFieldName]    = $title;
 
             // Additional data
-            if (!empty($link) AND $protocol!='other') {
-                $link = $protocol.$link;
-            }
-            $entry[$linkFieldName.'_link'] = $link;
-
-            // Additional data
             if (!empty($link) AND $protocol!='other' AND $protocol!='BASE_URL') {
                 $link = $protocol.$link;
             }
