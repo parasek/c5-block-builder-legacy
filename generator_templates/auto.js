@@ -2,9 +2,10 @@ $(function() {
 
     Concrete.event.bind('open.block.[[[BLOCK_HANDLE_DASHED]]]', function(e, data) {
 
-        var uniqueID         = data.uniqueID;
-        var formContainer    = $('#form-container-'+uniqueID);
-        var entriesContainer = formContainer.find('#entries-'+uniqueID);
+        var uniqueID           = data.uniqueID;
+        var formContainer      = $('#form-container-'+uniqueID);
+        var entriesContainer   = formContainer.find('#entries-'+uniqueID);
+        var maxNumberOfEntries = parseInt(formContainer.find('.js-max-number-of-entries').text());
 
         function activateEditors(parentContainer) {
 
@@ -30,9 +31,10 @@ $(function() {
 
             var fileSelectors = parentContainer.find('.js-file-selector');
             fileSelectors.each(function(i, item) {
+                var chooseText = $(item).attr('data-choose-text');
                 var inputName = $(item).attr('data-input-name');
                 var fID = parseInt($(item).attr('data-file-id'));
-                $(item).concreteFileSelector({'inputName': inputName, 'filters': [], 'fID': fID});
+                $(item).concreteFileSelector({'chooseText': chooseText, 'inputName': inputName, 'filters': [], 'fID': fID});
             });
 
         }
@@ -48,6 +50,44 @@ $(function() {
                     $(item).next().val(htmlEditorEntry.getValue());
                 });
             });
+
+        }
+
+        function activateDatePickers(parentContainer) {
+
+            var datePickers = parentContainer.find('.js-entry-date-displayed');
+            datePickers.each(function(i, item) {
+                var position = $(item).attr('data-position');
+                var dateFormat = $(item).attr('data-date-format');
+                var targetField = $(item).attr('data-target-field');
+                $(item).datepicker({
+                    dateFormat: dateFormat,
+                    altFormat: 'yy-mm-dd',
+                    altField: '.js-entry-'+targetField+'-'+position,
+                    changeYear: true,
+                    showAnim: 'fadeIn',
+                    yearRange: 'c-100:c+10',
+                    onClose: function(dateText, inst) {
+                        if(!dateText) {
+                            $(inst.settings.altField).val('');
+                        }
+                    }
+                });
+            });
+
+        }
+
+        function updateCounter(numberOfEntries) {
+
+            if (numberOfEntries<=maxNumberOfEntries) {
+                formContainer.find('.js-number-of-entries').text(numberOfEntries);
+            }
+
+            if (numberOfEntries>=maxNumberOfEntries) {
+                formContainer.find('.js-add-entry').attr('disabled', true);
+            } else {
+                formContainer.find('.js-add-entry').removeAttr('disabled');
+            }
 
         }
 
@@ -89,6 +129,10 @@ $(function() {
 
         activateHtmlEditors(formContainer);
 
+        activateDatePickers(formContainer);
+
+        updateCounter(countEntries(entriesContainer));
+
         // Add entry
         formContainer.on('click', '.js-add-entry', function(e) {
 
@@ -129,6 +173,10 @@ $(function() {
 
             activateHtmlEditors(newEntry);
 
+            activateDatePickers(newEntry);
+
+            updateCounter(countEntries(entriesContainer));
+
             // Smooth scroll
             $(this).closest('.ui-dialog-content').animate({
                 scrollTop: formContainer.find('.js-entry[data-position="'+position+'"]').position().top + $(this).closest('.ui-dialog-content').scrollTop()
@@ -165,6 +213,9 @@ $(function() {
                     entriesContainer.append(templateNoEntries());
 
                 }
+
+                updateCounter(countEntries(entriesContainer));
+
             }
 
         });
@@ -260,6 +311,65 @@ $(function() {
                     background: '#eee'
                 });
             }
+        });
+
+        // Change external link protocol
+        entriesContainer.on('keyup change', '.js-external-link-url', function(e) {
+
+            var url = $(this).val();
+
+            if (url.indexOf('https://') == 0) {
+                $(this).val(url.substring(8));
+                $(this).parent().closest('.row').find('.js-external-link-protocol').val(url.substring(0, 8));
+            } else if (url.indexOf('http://') == 0) {
+                $(this).val(url.substring(7));
+                $(this).parent().closest('.row').find('.js-external-link-protocol').val(url.substring(0, 7));
+            }
+
+        });
+
+        // Change link type
+        entriesContainer.on('change', '.js-link-type', function() {
+
+            var linkWrapper = $(this).closest('.js-link-wrapper');
+            var linkType = linkWrapper.find('.js-link-type').val();
+            var toggleAdditionalFieldsValue = parseInt(linkWrapper.find('.js-toggle-additional-fields-value').val());
+
+            linkWrapper.find('.js-toggle-additional-fields').hide();
+            linkWrapper.find('.js-link-type-wrapper').hide();
+            linkWrapper.find('.js-additional-fields-wrapper').hide();
+
+            if (linkType!=0) {
+                linkWrapper.find('.js-toggle-additional-fields').show();
+                linkWrapper.find('.js-link-type-wrapper-'+linkType).show();
+                if (toggleAdditionalFieldsValue==1) {
+                    linkWrapper.find('.js-additional-fields-wrapper').show();
+                }
+            }
+
+        });
+
+        // Change link type - Show additional fields
+        entriesContainer.on('click', '.js-toggle-additional-fields', function() {
+
+            var linkWrapper = $(this).closest('.js-link-wrapper');
+            var showText = linkWrapper.find('.js-toggle-additional-fields').attr('data-show-text');
+            var hideText = linkWrapper.find('.js-toggle-additional-fields').attr('data-hide-text');
+            var toggleAdditionalFieldsValue = parseInt(linkWrapper.find('.js-toggle-additional-fields-value').val());
+
+            if (toggleAdditionalFieldsValue) {
+                linkWrapper.find('.js-additional-fields-wrapper').hide();
+                linkWrapper.find('.js-toggle-additional-fields').removeClass('toggle-additional-fields-active');
+                linkWrapper.find('.js-toggle-additional-fields-value').val(0);
+                linkWrapper.find('.js-toggle-additional-fields-text').text(showText);
+            } else {
+                linkWrapper.find('.js-additional-fields-wrapper').show();
+                linkWrapper.find('.js-toggle-additional-fields').addClass('toggle-additional-fields-active');
+                linkWrapper.find('.js-toggle-additional-fields-value').val(1);
+                linkWrapper.find('.js-toggle-additional-fields-text').text(hideText);
+
+            }
+
         });
 
     });

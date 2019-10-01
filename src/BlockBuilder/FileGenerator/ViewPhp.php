@@ -60,6 +60,18 @@ class ViewPhp
 
                 }
 
+                if ($v['fieldType']=='link') {
+
+                    $code .= '<?php if (!empty($'.$v['handle'].'_link)): ?>'.PHP_EOL;
+
+                    $code .= BlockBuilderUtility::tab(1).'<a href="<?php echo $'.$v['handle'].'_link; ?><?php echo $'.$v['handle'].'_ending; ?>" title="<?php echo h($'.$v['handle'].'_title); ?>">'.PHP_EOL;
+                    $code .= BlockBuilderUtility::tab(2).'<?php echo h($'.$v['handle'].'_text); ?>'.PHP_EOL;
+                    $code .= BlockBuilderUtility::tab(1).'</a>'.PHP_EOL;
+
+                    $code .= '<?php endif; ?>'.PHP_EOL.PHP_EOL.PHP_EOL;
+
+                }
+
                 if ($v['fieldType']=='link_from_sitemap') {
 
                     $code .= '<?php if (!empty($'.$v['handle'].'_link)): ?>'.PHP_EOL.PHP_EOL;
@@ -87,7 +99,11 @@ class ViewPhp
 
                     $code .= '<?php if (!empty($'.$v['handle'].'_link)): ?>'.PHP_EOL.PHP_EOL;
 
-                    $code .= BlockBuilderUtility::tab(1).'<a href="<?php echo $'.$v['handle'].'_link; ?>"';
+                    $code .= BlockBuilderUtility::tab(1).'<a href="<?php echo $'.$v['handle'].'_link; ?>';
+                    if (!empty($v['linkFromFileManagerShowEndingField'])) {
+                        $code .= '<?php echo $'.$v['handle'].'_ending; ?>';
+                    }
+                    $code .= '"';
                     if (!empty($v['linkFromFileManagerShowTitleField'])) {
                         $code .= ' title="<?php echo h($' . $v['handle'] . '_title); ?>"';
                     }
@@ -106,7 +122,11 @@ class ViewPhp
 
                     $code .= '<?php if (!empty($'.$v['handle'].')): ?>'.PHP_EOL.PHP_EOL;
 
-                    $code .= BlockBuilderUtility::tab(1).'<a href="<?php echo $'.$v['handle'].'; ?>"';
+                    $code .= BlockBuilderUtility::tab(1).'<a href="<?php echo $'.$v['handle'].'_link; ?>';
+                    if (!empty($v['externalLinkShowEndingField'])) {
+                        $code .= '<?php echo $'.$v['handle'].'_ending; ?>';
+                    }
+                    $code .= '"';
                     if (!empty($v['externalLinkShowTitleField'])) {
                         $code .= ' title="<?php echo h($' . $v['handle'] . '_title); ?>"';
                     }
@@ -157,6 +177,16 @@ class ViewPhp
                     $code .= BlockBuilderUtility::tab(1).'<?php echo $'.$v['handle'].'; ?>'.PHP_EOL.PHP_EOL;
 
                     $code .= '<?php endif; ?>'.PHP_EOL.PHP_EOL;
+
+                }
+
+                if ($v['fieldType']=='date_picker') {
+
+                    $code .= '<?php if (!empty($'.$v['handle'].')): ?>'.PHP_EOL;
+
+                    $code .= BlockBuilderUtility::tab(1).'<?php echo date(\''.addslashes($v['datePickerPattern']).'\', strtotime($'.$v['handle'].')); ?>'.PHP_EOL;
+
+                    $code .= '<?php endif; ?>'.PHP_EOL.PHP_EOL.PHP_EOL;
 
                 }
 
@@ -215,6 +245,16 @@ class ViewPhp
 
                 }
 
+                if ($v['fieldType']=='link') {
+
+                    $code .= BlockBuilderUtility::tab(2).'<?php if (!empty($entry[\''.$v['handle'].'_link\'])): ?>'.PHP_EOL;
+                    $code .= BlockBuilderUtility::tab(3).'<a href="<?php echo $entry[\''.$v['handle'].'_link\']; ?><?php echo $entry[\''.$v['handle'].'_ending\']; ?>" title="<?php echo h($entry[\''.$v['handle'].'_title\']); ?>">'.PHP_EOL;
+                    $code .= BlockBuilderUtility::tab(4).'<?php echo h($entry[\''.$v['handle'].'_text\']); ?>'.PHP_EOL;
+                    $code .= BlockBuilderUtility::tab(3).'</a>'.PHP_EOL;
+                    $code .= BlockBuilderUtility::tab(2).'<?php endif; ?>'.PHP_EOL.PHP_EOL.PHP_EOL;
+
+                }
+
                 if ($v['fieldType']=='link_from_sitemap') {
 
                     $code .= BlockBuilderUtility::tab(2).'<?php if (!empty($entry[\''.$v['handle'].'_link\'])): ?>'.PHP_EOL.PHP_EOL;
@@ -242,7 +282,11 @@ class ViewPhp
 
                     $code .= BlockBuilderUtility::tab(2).'<?php if (!empty($entry[\''.$v['handle'].'_link\'])): ?>'.PHP_EOL.PHP_EOL;
 
-                    $code .= BlockBuilderUtility::tab(3).'<a href="<?php echo $entry[\''.$v['handle'].'_link\']; ?>"';
+                    $code .= BlockBuilderUtility::tab(3).'<a href="<?php echo $entry[\''.$v['handle'].'_link\']; ?>';
+                    if (!empty($v['linkFromFileManagerShowEndingField'])) {
+                        $code .= '<?php echo $entry[\'' . $v['handle'] . '_ending\']; ?>';
+                    }
+                    $code .= '"';
                     if (!empty($v['linkFromFileManagerShowTitleField'])) {
                         $code .= ' title="<?php echo h($entry[\'' . $v['handle'] . '_title\']); ?>"';
                     }
@@ -261,7 +305,11 @@ class ViewPhp
 
                     $code .= BlockBuilderUtility::tab(2).'<?php if (!empty($entry[\''.$v['handle'].'\'])): ?>'.PHP_EOL.PHP_EOL;
 
-                    $code .= BlockBuilderUtility::tab(3).'<a href="<?php echo $entry[\''.$v['handle'].'\']; ?>"';
+                    $code .= BlockBuilderUtility::tab(3).'<a href="<?php echo $entry[\''.$v['handle'].'_link\']; ?>';
+                    if (!empty($v['externalLinkShowEndingField'])) {
+                        $code .= '<?php echo $entry[\'' . $v['handle'] . '_ending\']; ?>';
+                    }
+                    $code .= '"';
                     if (!empty($v['externalLinkShowTitleField'])) {
                         $code .= ' title="<?php echo h($entry[\'' . $v['handle'] . '_title\']); ?>"';
                     }
@@ -312,6 +360,16 @@ class ViewPhp
                     $code .= BlockBuilderUtility::tab(3).'<?php echo $entry[\''.$v['handle'].'\']; ?>'.PHP_EOL.PHP_EOL;
 
                     $code .= BlockBuilderUtility::tab(2).'<?php endif; ?>'.PHP_EOL.PHP_EOL;
+
+                }
+
+                if ($v['fieldType']=='date_picker') {
+
+                    $code .= BlockBuilderUtility::tab(2).'<?php if (!empty($entry[\''.$v['handle'].'\'])): ?>'.PHP_EOL;
+
+                    $code .= BlockBuilderUtility::tab(3).'<?php echo date(\''.addslashes($v['datePickerPattern']).'\', strtotime($entry[\''.$v['handle'].'\'])); ?>'.PHP_EOL;
+
+                    $code .= BlockBuilderUtility::tab(2).'<?php endif; ?>'.PHP_EOL.PHP_EOL.PHP_EOL;
 
                 }
 
