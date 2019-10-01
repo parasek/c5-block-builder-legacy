@@ -31,7 +31,7 @@
                 if (substr($link, 0, 1)!='/') {
                     $separator = '/';
                 }
-                $link = BASE_URL.DIR_REL.$separator.$link;
+                $link = BASE_URL.$separator.$link;
             }
             $this->set($linkFieldName.'_link', $link);
 
@@ -55,7 +55,7 @@
                 if (substr($link, 0, 1)!='/') {
                     $separator = '/';
                 }
-                $link = BASE_URL.DIR_REL.$separator.$link;
+                $link = BASE_URL.$separator.$link;
             }
             $entry[$linkFieldName.'_link'] = $link;
 
