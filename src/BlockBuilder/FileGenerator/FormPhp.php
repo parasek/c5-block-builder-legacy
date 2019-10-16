@@ -56,7 +56,7 @@ class FormPhp
                 }
 
                 // Horizontal line (smart)
-                if ($postData['fieldsDivider'] == 'smart' AND $i!=1) {
+                if ($postData['fieldsDivider'] == 'smart') {
                     if (
                         !empty($v['linkFromSitemapShowEndingField']) OR
                         !empty($v['linkFromSitemapShowTextField']) OR
@@ -73,7 +73,9 @@ class FormPhp
                         !empty($v['imageShowAltTextField']) OR
                         ($v['fieldType']=='link')
                     ) {
-                        $code .= BlockBuilderUtility::tab(2) . '<hr/>' . PHP_EOL . PHP_EOL;
+                        if ($i!=1) {
+                            $code .= BlockBuilderUtility::tab(2) . '<hr/>' . PHP_EOL . PHP_EOL;
+                        }
                         $previousFieldTypeHadMultipleFields = true;
                     } else {
                         if ($previousFieldTypeHadMultipleFields) {
@@ -570,7 +572,7 @@ class FormPhp
                 }
 
                 // Horizontal line (smart)
-                if ($postData['entryFieldsDivider'] == 'smart' AND $i!=1) {
+                if ($postData['entryFieldsDivider'] == 'smart') {
                     if (
                         !empty($v['linkFromSitemapShowEndingField']) OR
                         !empty($v['linkFromSitemapShowTextField']) OR
@@ -587,7 +589,9 @@ class FormPhp
                         !empty($v['imageShowAltTextField']) OR
                         ($v['fieldType']=='link')
                     ) {
-                        $code .= BlockBuilderUtility::tab(5) . '<hr/>' . PHP_EOL . PHP_EOL;
+                        if ($i!=1) {
+                            $code .= BlockBuilderUtility::tab(5) . '<hr/>' . PHP_EOL . PHP_EOL;
+                        }
                         $previousFieldTypeHadMultipleFields = true;
                     } else {
                         if ($previousFieldTypeHadMultipleFields) {
