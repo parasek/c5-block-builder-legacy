@@ -61,6 +61,12 @@ class DbXml
                     if ( ! empty($v['linkFromSitemapShowTitleField'])) {
                         $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_title" type="C" size="255"></field>'.PHP_EOL;
                     }
+                    if ( ! empty($v['linkFromSitemapShowNewWindowField'])) {
+                        $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_new_window" type="I">'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<default value="0"/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<unsigned/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(2).'</field>'.PHP_EOL;
+                    }
                     $code .= PHP_EOL;
                 }
 
@@ -78,6 +84,12 @@ class DbXml
                     if ( ! empty($v['linkFromFileManagerShowTitleField'])) {
                         $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_title" type="C" size="255"></field>'.PHP_EOL;
                     }
+                    if ( ! empty($v['linkFromFileManagerShowNewWindowField'])) {
+                        $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_new_window" type="I">'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<default value="0"/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<unsigned/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(2).'</field>'.PHP_EOL;
+                    }
                     $code .= PHP_EOL;
                 }
 
@@ -92,6 +104,12 @@ class DbXml
                     }
                     if ( ! empty($v['externalLinkShowTitleField'])) {
                         $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_title" type="C" size="255"></field>'.PHP_EOL;
+                    }
+                    if ( ! empty($v['externalLinkShowNewWindowField'])) {
+                        $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_new_window" type="I">'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<default value="0"/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<unsigned/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(2).'</field>'.PHP_EOL;
                     }
                     $code .= PHP_EOL;
                 }
@@ -168,9 +186,22 @@ class DbXml
                     $code .= BlockBuilderUtility::tab(3).'<default value="0"/>'.PHP_EOL;
                     $code .= BlockBuilderUtility::tab(3).'<unsigned/>'.PHP_EOL;
                     $code .= BlockBuilderUtility::tab(2).'</field>'.PHP_EOL;
-                    $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_ending" type="C" size="255"></field>'.PHP_EOL;
-                    $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_text" type="C" size="255"></field>'.PHP_EOL;
-                    $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_title" type="C" size="255"></field>'.PHP_EOL.PHP_EOL;
+                    if ( ! empty($v['linkFromSitemapShowEndingField'])) {
+                        $code .= BlockBuilderUtility::tab(2) . '<field name="' . $v['handle'] . '_ending" type="C" size="255"></field>' . PHP_EOL;
+                    }
+                    if ( ! empty($v['linkFromSitemapShowTextField'])) {
+                        $code .= BlockBuilderUtility::tab(2) . '<field name="' . $v['handle'] . '_text" type="C" size="255"></field>' . PHP_EOL;
+                    }
+                    if ( ! empty($v['linkFromSitemapShowTitleField'])) {
+                        $code .= BlockBuilderUtility::tab(2) . '<field name="' . $v['handle'] . '_title" type="C" size="255"></field>' . PHP_EOL;
+                    }
+                    if ( ! empty($v['linkFromSitemapShowNewWindowField'])) {
+                        $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_new_window" type="I">'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<default value="0"/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<unsigned/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(2).'</field>'.PHP_EOL;
+                    }
+                    $code .= PHP_EOL;
                 }
 
                 if ($v['fieldType']=='link_from_file_manager') {
@@ -187,6 +218,12 @@ class DbXml
                     if ( ! empty($v['linkFromFileManagerShowTitleField'])) {
                         $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_title" type="C" size="255"></field>'.PHP_EOL;
                     }
+                    if ( ! empty($v['linkFromFileManagerShowNewWindowField'])) {
+                        $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_new_window" type="I">'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<default value="0"/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<unsigned/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(2).'</field>'.PHP_EOL;
+                    }
                     $code .= PHP_EOL;
                 }
 
@@ -201,6 +238,12 @@ class DbXml
                     }
                     if ( ! empty($v['externalLinkShowTitleField'])) {
                         $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_title" type="C" size="255"></field>'.PHP_EOL;
+                    }
+                    if ( ! empty($v['externalLinkShowNewWindowField'])) {
+                        $code .= BlockBuilderUtility::tab(2).'<field name="'.$v['handle'].'_new_window" type="I">'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<default value="0"/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(3).'<unsigned/>'.PHP_EOL;
+                        $code .= BlockBuilderUtility::tab(2).'</field>'.PHP_EOL;
                     }
                     $code .= PHP_EOL;
                 }
