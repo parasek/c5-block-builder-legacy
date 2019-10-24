@@ -10,7 +10,7 @@ class Controller extends Package
 {
     protected $pkgHandle = 'block_builder';
     protected $appVersionRequired = '5.7.5';
-    protected $pkgVersion = '1.2.0';
+    protected $pkgVersion = '1.2.1';
 
     public function getPackageName() {
         return t('Block Builder');
